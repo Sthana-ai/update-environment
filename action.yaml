@@ -1,8 +1,8 @@
 name: Update environment
 description: Action to update the version of the environment
 inputs:
-  githubToken:
-    description: Github token
+  ciToken:
+    description: CI Github token
     required: true
   environment:
     description: Name of the environment

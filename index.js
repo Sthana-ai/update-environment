@@ -4,11 +4,11 @@ const github = require('@actions/github');
 const action = async () => {
   try {
     const environment = core.getInput('environment', { required: true });
-    const githubToken = core.getInput('githubToken', { required: true });
+    const ciToken = core.getInput('ciToken', { required: true });
     const serviceName = core.getInput('serviceName', { required: true });
     const serviceVersion = core.getInput('serviceVersion', { required: true });
 
-    const octokit = github.getOctokit(githubToken);
+    const octokit = github.getOctokit(ciToken);
 
     const serviceStatesRes = await octokit.repos.getContent({
       owner: 'Sthana-ai',
