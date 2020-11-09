@@ -6,7 +6,7 @@ const action = async () => {
     const environment = core.getInput('environment', { required: true });
     const githubToken = core.getInput('githubToken', { required: true });
     const serviceName = core.getInput('serviceName', { required: true });
-    const serviceVersion = core.getInput('version', { required: true });
+    const serviceVersion = core.getInput('serviceVersion', { required: true });
 
     const octokit = github.getOctokit(githubToken);
 
