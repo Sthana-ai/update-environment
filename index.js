@@ -35,6 +35,7 @@ const action = async () => {
       message: `chore(environment): update ${serviceName} version in ${environment} to ${serviceVersion}`,
       path: `services/${environment}.json`,
       content: Buffer.from(JSON.stringify(updatedServiceStates)).toString('base64'),
+      sha: serviceStatesRes.data.sha,
     });
   } catch (error) {
     core.setFailed(error);
