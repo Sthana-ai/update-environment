@@ -1,0 +1,16 @@
+{
+  "name": "update-environment",
+  "version": "1.0.0",
+  "description": "Update the environment data",
+  "main": "index.js",
+  "license": "ISC",
+  "dependencies": {
+    "@actions/core": "^1.2.6",
+    "@actions/github": "^4.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.13.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1"
+  }
+}
