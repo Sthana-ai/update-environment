@@ -1,5 +1,5 @@
 name: Update environment
-description: Action to update the version of the environment
+description: Action to update the version of a service in an environment
 inputs:
   ciToken:
     description: CI Github token
@@ -10,6 +10,9 @@ inputs:
   serviceName:
     description: Name of the service
     required: true
+  sidecarServiceName:
+    description: Name of the sidecar service
+    required: false
   serviceVersion:
     description: Version of service
     required: true

@@ -6,6 +6,7 @@ const action = async () => {
     const environment = core.getInput('environment', { required: true });
     const ciToken = core.getInput('ciToken', { required: true });
     const serviceName = core.getInput('serviceName', { required: true });
+    const sidecarServiceName = core.getInput('sidecarServiceName', { required: false });
     const serviceVersion = core.getInput('serviceVersion', { required: true });
 
     const octokit = github.getOctokit(ciToken);
@@ -24,6 +25,17 @@ const action = async () => {
 
     const updatedServiceStates = serviceStates.map((state) => {
       if (state.name === serviceName) {
+        if (sidecarServiceName) {
+          return {
+            ...state,
+            sidecars: state.sidecars.map((sidecar) => {
+              if (sidecar.name === sidecarServiceName) {
+                return { ...sidecar, version: serviceVersion };
+              }
+              return sidecar;
+            }),
+          };
+        }
         return { ...state, version: serviceVersion };
       }
       return state;
@@ -32,7 +44,7 @@ const action = async () => {
     await octokit.repos.createOrUpdateFileContents({
       owner: 'Sthana-ai',
       repo: 'environments',
-      message: `chore(environment): update ${serviceName} version in ${environment} to ${serviceVersion}`,
+      message: `chore(environment): update version of ${sidecarServiceName ? `${sidecarServiceName}(sidecar of ${serviceName})` : serviceName} in ${environment} to ${serviceVersion}`,
       path: `services/${environment}.json`,
       content: Buffer.from(JSON.stringify(updatedServiceStates, null, 2)).toString('base64'),
       sha: serviceStatesRes.data.sha,
